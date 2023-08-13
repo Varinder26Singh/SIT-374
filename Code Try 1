@@ -1,0 +1,25 @@
+const int HR_RX = 10;
+byte oldSample, sample;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode (HR_RX, INPUT); 
+  
+  Serial.println("Waiting for heart beat...");
+ 
+  while (!digitalRead(HR_RX)) {};
+  Serial.println ("Heart beat detected!");
+}
+
+void loop() {
+  sample = digitalRead(HR_RX); 
+  if (sample && (oldSample != sample)) {
+    Serial.println("Beat");
+    heartBeat();
+  }
+  oldSample = sample;
+}
+
+void heartBeat (){Serial.println("heartbeat");
+   delay(10);
+}
