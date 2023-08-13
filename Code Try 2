@@ -1,0 +1,55 @@
+//Definitions  
+const int HR_RX = 8;
+byte oldSample, sample;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode (HR_RX, INPUT);  //Signal pin to input  
+  pinMode (8, OUTPUT);  //Signal pin to input  
+  
+  Serial.println("Waiting for heart beat...");
+
+  //Wait until a heart beat is detected  
+  //while (!digitalRead(HR_RX)) {};
+ // Serial.println ("Heart beat detected!");
+  
+}
+int count=0;
+float avg=0.0;
+float total=0.0;
+int max1=0;
+int min1 = 999;
+int br = 0;
+void loop() {
+ 
+  br++;
+  //sample = digitalRead(HR_RX);
+  sample = analogRead(A0);//Store signal output 
+  if (sample && (oldSample != sample)) {
+    
+    if(min1>sample)
+    min1 = sample;
+    if(max1<sample)
+    max1 = sample;
+    
+   // Serial.println(min1);
+    Serial.println(sample);
+     delay(2);
+   // Serial.println(max1);
+    total = sample + total;
+    count++;
+  
+    if(count%200==0)
+    {
+    avg = total/count;
+    total = 0;
+    count = 1;
+    }
+
+  }
+      digitalWrite(8, LOW);
+  oldSample = sample;           //Store last signal received 
+  if(br==100000 )
+    while (true) {};
+    
+}
