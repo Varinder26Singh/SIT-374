@@ -1,6 +1,9 @@
 # SIT-374
 
 Polar = Code Try 1 to 6
+
+
+
 References
 1. https://learn.parallax.com/KickStart
 2. https://learn.adafruit.com/heart-rate-badge/program-it
